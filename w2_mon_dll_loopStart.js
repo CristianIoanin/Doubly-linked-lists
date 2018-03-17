@@ -152,7 +152,6 @@ function loopStart(list) {
 
 console.log(loopStart(myList));
 console.log(loopStart(my2ndList));
-'\n';
 
 function checkifLoopForward(list) {
     let walker = list.head;
@@ -205,4 +204,3 @@ console.log(checkifLoopForward(my2ndList)); //false
 
 console.log(checkifLoopBacwards(myList)); //node2 starts the loop
 console.log(checkifLoopBacwards(my2ndList)); //false
-'\n';

@@ -193,29 +193,40 @@ console.log(kthToLast(myList, 10)); //null
 // Return: false
 
 //a simple, and OK-ish list
-var node1 = {val: 1, prev: null, next: node2};
-var node2 = {val: 2, prev: node1, next: node3};
-var node3 = {val: 3, prev: node2, next: null};
+
+const node1 = new dlNode(1);
+const node2 = new dlNode(2);
+const node3 = new dlNode(3);
+
+node1.prev = null;
+node1.next = node2;
+node2.prev = node1;
+node2.next = node3;
+node3.prev = node2;
+node3.next = null;
 
 const simpleList = new dList();
 simpleList.head = node1;
-node1.next = node2;
-node2.next = node3;
 simpleList.tail = node3;
 
 //an empty, but OK list
 const emptyList = new dList();
 
 //a simple, but not that OK list
-var node1 = {val: 1, prev: null, next: node2};
-var node2 = {val: 2, prev: node1, next: node3};
-var node3 = {val: 3, prev: null, next: null};
+const node4 = new dlNode(1);
+const node5 = new dlNode(2);
+const node6 = new dlNode(3);
+
+node4.prev = null;
+node4.next = node5;
+node5.prev = node4;
+node5.next = null;
+node6.prev = node5;
+node6.next = null;
 
 const anotherSimpleList = new dList();
-anotherSimpleList.head = node1;
-node1.next = node2;
-node2.next = node3;
-anotherSimpleList.tail = node3;
+anotherSimpleList.head = node4;
+anotherSimpleList.tail = node6;
 
 
 
@@ -229,10 +240,21 @@ function isValid(list) {
         if(list.head.prev !== null && list.tail.next !== null) valid = false;
     }
 
-    while(current && current.next) {
-        if(current.next.prev !== current) valid = false;
-        current = current.next;
+    if(valid === true) {
+        while(current && current.next) {
+            if(current.next.prev !== current) valid = false;
+            current = current.next;
+        }
+        if(current !== list.tail) valid = false;
+
+        current = list.tail;
+        while(current && current.prev) {
+            if(current.prev.next !== current) valid = false;
+            current = current.prev;
+        }
+        if(current !== list.head) valid = false;
     }
+
     return valid;
 }
 
