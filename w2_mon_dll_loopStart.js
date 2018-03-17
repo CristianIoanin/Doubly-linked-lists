@@ -152,3 +152,57 @@ function loopStart(list) {
 
 console.log(loopStart(myList));
 console.log(loopStart(my2ndList));
+'\n';
+
+function checkifLoopForward(list) {
+    let walker = list.head;
+    let runner = list.head;
+    
+    while(runner.next) {
+        walker = walker.next;
+        runner = runner.next.next;
+
+        if(walker === runner) { //loop detected
+            walker = list.head;
+            break;
+        }  
+    }
+    while(runner.next) {
+        let culprit = runner;
+        walker = walker.next; 
+        runner = runner.next; //change pace so that pointers meet again, this time at loop's starting point
+
+        if(walker === runner) return culprit;
+    }
+    return false;
+}
+
+function checkifLoopBacwards(list) {
+    let walker = list.tail;
+    let runner = list.tail;
+    
+    while(runner.prev) {
+        walker = walker.prev;
+        runner = runner.prev.prev;
+
+        if(walker === runner) { //loop detected
+            walker = list.tail;
+            break;
+        }  
+    }
+    while(runner.prev) {
+        let culprit = runner;
+        walker = walker.prev; 
+        runner = runner.prev; //change pace so that pointers meet again, this time at loop's starting point
+
+        if(walker === runner) return culprit;
+    }
+    return false;
+}
+
+console.log(checkifLoopForward(myList)); //node5 starts the loop
+console.log(checkifLoopForward(my2ndList)); //false
+
+console.log(checkifLoopBacwards(myList)); //node2 starts the loop
+console.log(checkifLoopBacwards(my2ndList)); //false
+'\n';
